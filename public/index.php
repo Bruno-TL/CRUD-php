@@ -1,13 +1,19 @@
 <?php 
 
-$rota = $_SERVER['REQUEST_URI'];
+$rota = explode('?',$_SERVER['REQUEST_URI']);
+$rota = $rota[0];
 
 require_once '../src/controller/alunoController.php';
+require_once '../src/connection/connection.php';
+require_once '../src/repository/alunoRepository.php';
 
 $pages = [
     '/' => 'home',
     '/list' => 'listAluno',
-    '/new' => 'newAluno' 
+    '/new' => 'newAlunos',
+    '/update' => 'update',
+    '/delete' => 'delete',
+    
 ];
 
 include '../src/views/menu.phtml';

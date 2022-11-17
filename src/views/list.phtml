@@ -1,2 +1,32 @@
-<h1>Pagina de listar</h1>
+<h1>Página de Listar</h1>
+
 <hr>
+<table class="container table table-strped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <td>ID</td>
+            <td>NOME</td>
+            <td>CIDADE</td>
+            <td>MATRICULA</td>
+            <td>Ações</td>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+            foreach($alunos as $row){
+                $id = $row['idAluno'];
+                echo " <tr>
+                    <td>{$row['idAluno']}</td>
+                    <td>{$row['nome']}</td>
+                    <td>{$row['cidade']}</td>
+                    <td>{$row['matricula']}</td>
+                    <td>
+                        <a href='/update?id={$id}' class='btn btn-outline-warning'>Editar</a>
+                        <a href='/excluir?id={$id}' class='btn btn-outline-danger'>Excluir</a>
+                    </td>
+                </tr>";
+            }
+        ?>
+    </tbody>
+    
+</table>
