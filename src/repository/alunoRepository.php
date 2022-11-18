@@ -19,22 +19,16 @@ function searchOnlyAlunos($id): iterable
 
 function deleteAlunos(string $id): void 
 {
-    $sql = "DELETE FROM alunos.aluno WHERE id={$id}";
+    $sql = "DELETE FROM alunos.aluno WHERE idAluno={$id}";
     openConnection()->query($sql);
 }
 
-function newAluno(): void
+function newAluno(string $nome, string $cidade, string $matricula): void
 {
-    if(isset($_POST['cadastrar'])){
-        $nome= $_POST['nome'];
-        $cidade = $_POST['cidade'];
-        $matricula = $_POST['matricula'];
-
-        $sql = "INSERT INTO aluno (nome,cidade,matricula) VALUES (?,?,?)";
-        $query =openConnection()->prepare($sql);
-        $query->execute([$nome,$cidade,$matricula]);
-        header('location: /list');
-    }
+    $sql = "INSERT INTO aluno (nome,cidade,matricula) VALUES (?,?,?)";
+    $query =openConnection()->prepare($sql);
+    $query->execute([$nome,$cidade,$matricula]);
+    
 }
 
 function updateAluno()

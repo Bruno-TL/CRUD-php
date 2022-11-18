@@ -25,26 +25,12 @@ function newAlunos(): void
         $cidade = trim($_POST['cidade']);
         $matricula = trim($_POST['matricula']);
 
-        if(strlen($nome) < 3){
-            $mensagem = 'Nome inválido';
-            include('../src/views/components/error.phtml');
-            return;
-        }
-
-        if(strlen($cidade) < 3){
-            $mensagem = 'Cidade inválido';
-            include('../src/views/components/error.phtml');
-            return;
-        }
-
-        if(strlen($matricula) < 3){
-            $mensagem = 'Matricula inválido';
-            include('../src/views/components/error.phtml');
-            return;
+        if(true === validateForm($nome,$cidade,$matricula))
+        {
+            newAluno($nome,$cidade,$matricula);
+            header('location: /list');
         }
     }
-
-    newAluno();
 }
 
 function delete(): void
@@ -53,7 +39,7 @@ function delete(): void
 
     deleteAlunos($id);
 
-    header('location: /listar');
+    header('location: /list');
 }
 
 function update() 

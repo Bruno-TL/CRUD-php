@@ -22,7 +22,7 @@
                     <td>{$row['matricula']}</td>
                     <td>
                         <a href='/update?id={$id}' class='btn btn-outline-warning'>Editar</a>
-                        <a href='/excluir?id={$id}' class='btn btn-outline-danger'>Excluir</a>
+                        <a href='#' onclick='confirmValid({$id})' class='btn btn-outline-danger'>Excluir</a>
                     </td>
                 </tr>";
             }
@@ -30,3 +30,11 @@
     </tbody>
     
 </table>
+
+<script>
+    function confirmValid(id) {
+        if(true === confirm('Tem certeza?')){
+            location.href = '/delete?id='+id;
+        }
+    }
+</script>
