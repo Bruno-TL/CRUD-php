@@ -31,18 +31,9 @@ function newAluno(string $nome, string $cidade, string $matricula): void
     
 }
 
-function updateAluno()
+function updateAluno($nome, $matricula, $cidade,$id)
 {
-    if(false === empty($_POST)){
-        $id = $_POST['idAluno'];
-        $nome = $_POST['nome'];
-        $matricula = $_POST['matricula'];
-        $cidade = $_POST['cidade'];
-
-        
-        $sql = "UPDATE aluno SET nome=?, matricula=?, cidade=? WHERE id=?";
-        $query = openConnection()->prepare($sql);
-        $query->execute([$nome, $matricula, $cidade,$id]);
-        header('location: /list');
-    }
+    $sql = "UPDATE aluno SET nome=?, matricula=?, cidade=? WHERE idAluno=?";
+    $query = openConnection()->prepare($sql);
+    $query->execute([$nome, $matricula, $cidade,$id]);
 }

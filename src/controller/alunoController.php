@@ -5,20 +5,25 @@
  
 declare(strict_types=1);
 
+function render(string $nomeDoArquivo, mixed $dados = null) {
+    include "../src/views/{$nomeDoArquivo}.phtml";
+    $dados;
+}
+
 function home(): void // estamos declarando que essa função "não tem retorno"
 {
-    include '../src/views/home.phtml';
+    render("home");
 }
 
 function listAluno(): void
 {
     $alunos = searchAlunos();
-    include '../src/views/list.phtml';
+    render("list", $alunos);
 }
 
 function newAlunos(): void
 {   
-    include '../src/views/new.phtml';
+    render("new");
 
     if(false === empty($_POST)){
         $nome = trim($_POST['nome']);
@@ -46,6 +51,15 @@ function update()
 {
     $id =$_GET["id"];
     $aluno = searchOnlyAlunos($id);
-    updateAluno();
-    include '../src/views/update.phtml';
+    render("update",$aluno);
+    if(false === empty($_POST)){
+        $nome = trim($_POST['nome']);
+        $cidade = trim($_POST['cidade']);
+        $matricula = trim($_POST['matricula']);
+
+        if(true === validateForm($nome,$cidade,$matricula)){
+            updateAluno($nome,$cidade,$matricula,$id);
+            header('location: /list');
+        }
+    }
 }
