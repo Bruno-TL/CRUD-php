@@ -17,8 +17,6 @@ $pages = [
     
 ];
 
-include '../src/views/menu.phtml';
-
 if(false === isset($pages[$rota])) {
     include '../src/views/error404.phtml';
     exit;

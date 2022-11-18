@@ -5,9 +5,17 @@
  
 declare(strict_types=1);
 
-function render(string $nomeDoArquivo, mixed $dados = null) {
+function render(string $nomeDoArquivo, mixed $dados = null) 
+{
+    include '../src/views/header.phtml';
     include "../src/views/{$nomeDoArquivo}.phtml";
     $dados;
+    include '../src/views/footer.phtml';
+}
+
+function redirection (string $onde) 
+{
+    header("location: {$onde}");
 }
 
 function home(): void // estamos declarando que essa função "não tem retorno"
@@ -33,7 +41,7 @@ function newAlunos(): void
         if(true === validateForm($nome,$cidade,$matricula))
         {
             newAluno($nome,$cidade,$matricula);
-            header('location: /list');
+            redirection('/list');
         }
     }
 }
@@ -44,7 +52,7 @@ function delete(): void
 
     deleteAlunos($id);
 
-    header('location: /list');
+    redirection('/list');
 }
 
 function update() 
@@ -59,7 +67,7 @@ function update()
 
         if(true === validateForm($nome,$cidade,$matricula)){
             updateAluno($nome,$cidade,$matricula,$id);
-            header('location: /list');
+            redirection('/list');
         }
     }
 }
