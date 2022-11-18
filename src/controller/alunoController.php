@@ -19,6 +19,31 @@ function listAluno(): void
 function newAlunos(): void
 {   
     include '../src/views/new.phtml';
+
+    if(false === empty($_POST)){
+        $nome = trim($_POST['nome']);
+        $cidade = trim($_POST['cidade']);
+        $matricula = trim($_POST['matricula']);
+
+        if(strlen($nome) < 3){
+            $mensagem = 'Nome inválido';
+            include('../src/views/components/error.phtml');
+            return;
+        }
+
+        if(strlen($cidade) < 3){
+            $mensagem = 'Cidade inválido';
+            include('../src/views/components/error.phtml');
+            return;
+        }
+
+        if(strlen($matricula) < 3){
+            $mensagem = 'Matricula inválido';
+            include('../src/views/components/error.phtml');
+            return;
+        }
+    }
+
     newAluno();
 }
 
@@ -33,5 +58,8 @@ function delete(): void
 
 function update() 
 {
+    $id =$_GET["id"];
+    $aluno = searchOnlyAlunos($id);
+    updateAluno();
     include '../src/views/update.phtml';
 }

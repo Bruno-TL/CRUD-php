@@ -12,9 +12,9 @@ function searchAlunos(): iterable
 
 function searchOnlyAlunos($id): iterable
 {
-    $sql = "SELECT * FROM alunos.aluno WHERE id='{$id}'";
+    $sql = "SELECT * FROM alunos.aluno WHERE idAluno='{$id}'";
     $aluno = openConnection()->query($sql);
-    return $aluno;
+    return $aluno->fetch(PDO::FETCH_ASSOC);
 }
 
 function deleteAlunos(string $id): void 
@@ -30,13 +30,25 @@ function newAluno(): void
         $cidade = $_POST['cidade'];
         $matricula = $_POST['matricula'];
 
-        $sql = "INSERT INTO aluno (nome,cidade,matricula) VALUES ('{$nome}','{$cidade}','{$matricula}')";
-        $inserir = mysqli_query(openConnection(),$sql);
+        $sql = "INSERT INTO aluno (nome,cidade,matricula) VALUES (?,?,?)";
+        $query =openConnection()->prepare($sql);
+        $query->execute([$nome,$cidade,$matricula]);
         header('location: /list');
     }
 }
 
-// function updateAluno()
-// {
+function updateAluno()
+{
+    if(false === empty($_POST)){
+        $id = $_POST['idAluno'];
+        $nome = $_POST['nome'];
+        $matricula = $_POST['matricula'];
+        $cidade = $_POST['cidade'];
 
-// }
+        
+        $sql = "UPDATE aluno SET nome=?, matricula=?, cidade=? WHERE id=?";
+        $query = openConnection()->prepare($sql);
+        $query->execute([$nome, $matricula, $cidade,$id]);
+        header('location: /list');
+    }
+}
